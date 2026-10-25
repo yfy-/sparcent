@@ -50,4 +50,4 @@ dependencies:
       - transformers==4.38.2
       - ujson==5.9.0
       # The colbert fork; its sparcent extra installs the splade and BMP forks.
-      - colbert[sparcent] @ git+ssh://git@github.com/yfy-/colbert.git@8f0188b683fdd244d8e5ae0bfb9a522c54770ddf
+      - colbert[sparcent] @ git+ssh://git@github.com/yfy-/colbert.git@a7460f1a910f2f96c37ade027e6aca04444af5d2
