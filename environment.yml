@@ -1,0 +1,53 @@
+# Single environment for indexing and searching with Sparcent (linux-64, CUDA 11.7).
+# Versions mirror the environment the paper's latencies were measured with.
+name: sparcent
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip
+  - pytorch=1.13.1
+  - pytorch-cuda=11.7
+  # The CUDA 11.3 build of faiss (the solver otherwise picks a CUDA 10.2 one).
+  - faiss-gpu=1.7.3=*cuda11.3*
+  - cudatoolkit=11.3
+  # PyTorch 1.13 fails to load with mkl>=2024.1 (undefined symbol: iJIT_NotifyEvent).
+  - mkl=2023.2.0
+  - numpy=1.24.4
+  # nvcc and headers for ColBERT's JIT-compiled CUDA extensions (GPU indexing).
+  - cuda-nvcc=11.7.99
+  - cuda-cudart-dev=11.7.99
+  - cuda-driver-dev=11.7.99
+  - cuda-cccl=11.7.91
+  # ColBERT's C++ extensions are compiled with these at runtime, as in the paper.
+  - gcc=9.4.0
+  - gxx=9.4.0
+  # Building against glibc 2.17 keeps the compiled tools portable across distributions.
+  - sysroot_linux-64=2.17
+  # PISA tools (CMake 4 rejects the old cmake_minimum_required of PISA's dependencies).
+  - cmake>=3.22,<4
+  - make
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+  # Rust for the BMP Python bindings and ciff, the version of the reproduced results.
+  - rust=1.99.0
+  - pip:
+      - bitarray==2.9.2
+      - gitpython==3.1.42
+      - huggingface-hub==0.21.4
+      - ninja==1.11.1.1
+      - omegaconf==2.3.0
+      - peft==0.11.1
+      - psutil==5.9.8
+      - safetensors==0.4.2
+      - scipy==1.10.1
+      - tokenizers==0.15.2
+      - tqdm==4.66.2
+      - transformers==4.38.2
+      - ujson==5.9.0
+      # The colbert fork; its sparcent extra installs the splade and BMP forks.
+      - colbert[sparcent] @ git+ssh://git@github.com/yfy-/colbert.git@8f0188b683fdd244d8e5ae0bfb9a522c54770ddf

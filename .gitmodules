@@ -1,0 +1,8 @@
+[submodule "pisa"]
+	path = pisa
+	url = git@github.com:yfy-/pisa-score-cache.git
+	branch = master
+	ignore = dirty
+[submodule "ciff"]
+	path = ciff
+	url = https://github.com/pisa-engine/ciff.git
